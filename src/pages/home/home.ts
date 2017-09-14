@@ -5,6 +5,7 @@ import { FirebaseListObservable } from "angularfire2/database";
 import { Usuario } from "../../models/usuario.model";
 import { UsuarioService } from "../../providers/usuario/usuario.service";
 import { AuthService } from "../../providers/auth/auth.service";
+import { ChatPage } from '../chat/chat';
 
 @Component({
     selector: 'page-home',
@@ -29,7 +30,9 @@ export class HomePage {
     }
 
     abrirChat(usuario: Usuario): void {
-
+        this.navCtrl.push(ChatPage, {
+            usuarioDestinatario: usuario
+        })
     }
 
     registrar(): void {

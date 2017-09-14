@@ -1,0 +1,27 @@
+<ion-header>
+
+    <custom-header-logado [titulo]="tituloPagina"></custom-header-logado>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-list no-lines>
+        <ion-item *ngFor="let mensagem of mensagens">{{mensagem}}</ion-item>
+    </ion-list>
+
+</ion-content>
+
+<ion-footer>
+
+    <ion-toolbar>
+        <ion-item no-lines>
+            <ion-input type="text" (keyup.enter)="enviarMensagem(novaMensagem); novaMensagem = ''" placeholder="Mensagem..." [(ngModel)]="novaMensagem"></ion-input>
+            <button ion-button item-right (click)="enviarMensagem(novaMensagem); novaMensagem = ''">
+                <ion-icon name="send"></ion-icon>
+            </button>
+        </ion-item>
+    </ion-toolbar>
+
+</ion-footer>

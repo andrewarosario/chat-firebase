@@ -16,6 +16,7 @@ import { AuthService } from '../providers/auth/auth.service';
 import { LoginPage } from "../pages/login/login";
 import { CustomHeaderLogadoComponent } from "../components/custom-header-logado/custom-header-logado.component";
 import { CapitalizePipe } from "../pipes/capitalize.pipe";
+import { ChatPage } from '../pages/chat/chat';
 
 const firebaseAppConfig: FirebaseAppConfig = {
     apiKey: "AIzaSyAPxwo9lHdDXDJBNXQLyHj5f_PA7YYbAO8",
@@ -33,7 +34,8 @@ const firebaseAppConfig: FirebaseAppConfig = {
       RegistrarPage,
       LoginPage,
       CustomHeaderLogadoComponent,
-      CapitalizePipe
+      CapitalizePipe,
+      ChatPage
     ],
     imports: [
       BrowserModule,
@@ -47,7 +49,8 @@ const firebaseAppConfig: FirebaseAppConfig = {
       MyApp,
       HomePage,
       RegistrarPage,
-      LoginPage
+      LoginPage,
+      ChatPage
     ],
     providers: [
       StatusBar,
