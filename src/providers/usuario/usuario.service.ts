@@ -59,4 +59,9 @@ export class UsuarioService extends BaseService{
             return usuarios.length > 0;
         }).catch(this.handleObservableError);        
     }
+
+    get(idUsuario: string): FirebaseObjectObservable<Usuario> {
+        return <FirebaseObjectObservable<Usuario>>this.db.object(`/usuario/${idUsuario}`)
+            .catch(this.handleObservableError);
+    }
 }

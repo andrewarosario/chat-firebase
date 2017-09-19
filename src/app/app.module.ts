@@ -17,6 +17,7 @@ import { LoginPage } from "../pages/login/login";
 import { CustomHeaderLogadoComponent } from "../components/custom-header-logado/custom-header-logado.component";
 import { CapitalizePipe } from "../pipes/capitalize.pipe";
 import { ChatPage } from '../pages/chat/chat';
+import { ChatService } from '../providers/chat/chat.service';
 
 const firebaseAppConfig: FirebaseAppConfig = {
     apiKey: "AIzaSyAPxwo9lHdDXDJBNXQLyHj5f_PA7YYbAO8",
@@ -25,8 +26,8 @@ const firebaseAppConfig: FirebaseAppConfig = {
     projectId: "chat-firebase-7cad8",
     storageBucket: "chat-firebase-7cad8.appspot.com",
     messagingSenderId: "735843606451"
-};
-
+  };
+    
 @NgModule({
     declarations: [
       MyApp,
@@ -57,7 +58,8 @@ const firebaseAppConfig: FirebaseAppConfig = {
       SplashScreen,
       UsuarioService,
       AuthService,
-      {provide: ErrorHandler, useClass: IonicErrorHandler},    
+      ChatService,
+      {provide: ErrorHandler, useClass: IonicErrorHandler},
     ]
 })
 export class AppModule {}
