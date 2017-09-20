@@ -38,7 +38,7 @@ export class HomePage {
         this.usuarios = this.usuarioService.usuarios;
     }
 
-    abrirChat(usuarioDestinatario: Usuario): void {
+    criarChat(usuarioDestinatario: Usuario): void {
 
         this.usuarioService.usuarioAtual
             .first()
@@ -64,6 +64,19 @@ export class HomePage {
         this.navCtrl.push(ChatPage, {
             usuarioDestinatario: usuarioDestinatario
         })
+    }
+
+    abrirChat(chat: Chat): void {
+
+        let uidUsuarioDestinatario: string = chat.$key;
+
+        this.usuarioService.get(uidUsuarioDestinatario)
+            .first()
+            .subscribe((usuario: Usuario) => {
+                this.navCtrl.push(ChatPage, {
+                    usuarioDestinatario: usuario
+                })
+            })
     }
 
     registrar(): void {

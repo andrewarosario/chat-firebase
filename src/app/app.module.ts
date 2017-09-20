@@ -18,6 +18,7 @@ import { CustomHeaderLogadoComponent } from "../components/custom-header-logado/
 import { CapitalizePipe } from "../pipes/capitalize.pipe";
 import { ChatPage } from '../pages/chat/chat';
 import { ChatService } from '../providers/chat/chat.service';
+import { MensagemService } from '../providers/mensagem/mensagem.service';
 
 const firebaseAppConfig: FirebaseAppConfig = {
     apiKey: "AIzaSyAPxwo9lHdDXDJBNXQLyHj5f_PA7YYbAO8",
@@ -59,7 +60,8 @@ const firebaseAppConfig: FirebaseAppConfig = {
       UsuarioService,
       AuthService,
       ChatService,
-      {provide: ErrorHandler, useClass: IonicErrorHandler},
+      MensagemService,
+      {provide: ErrorHandler, useClass: IonicErrorHandler}
     ]
 })
 export class AppModule {}
