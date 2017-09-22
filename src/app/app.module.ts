@@ -19,6 +19,7 @@ import { CapitalizePipe } from "../pipes/capitalize.pipe";
 import { ChatPage } from '../pages/chat/chat';
 import { ChatService } from '../providers/chat/chat.service';
 import { MensagemService } from '../providers/mensagem/mensagem.service';
+import { MensagemBoxComponent } from '../components/mensagem-box/mensagem-box.component';
 
 const firebaseAppConfig: FirebaseAppConfig = {
     apiKey: "AIzaSyAPxwo9lHdDXDJBNXQLyHj5f_PA7YYbAO8",
@@ -36,6 +37,7 @@ const firebaseAppConfig: FirebaseAppConfig = {
       RegistrarPage,
       LoginPage,
       CustomHeaderLogadoComponent,
+      MensagemBoxComponent,
       CapitalizePipe,
       ChatPage
     ],

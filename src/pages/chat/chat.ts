@@ -4,10 +4,12 @@ import { AuthService } from '../../providers/auth/auth.service';
 import { Usuario } from '../../models/usuario.model';
 import { UsuarioService } from '../../providers/usuario/usuario.service';
 import { Mensagem } from '../../models/mensagem.model';
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { MensagemService } from '../../providers/mensagem/mensagem.service';
 
 import * as firebase from 'firebase/app';
+import { Chat } from '../../models/chat.model';
+import { ChatService } from '../../providers/chat/chat.service';
 
 @Component({
     selector: 'page-chat',
@@ -20,11 +22,15 @@ export class ChatPage {
     remetente: Usuario;
     destinatario: Usuario;
 
+    private chatRemetente: FirebaseObjectObservable<Chat>;
+    private chatDestinatario: FirebaseObjectObservable<Chat>;
+
     constructor(public navCtrl: NavController, 
                 public navParams: NavParams, 
                 public authService: AuthService,
                 public usuarioService: UsuarioService,
-                public mensagemService: MensagemService)
+                public mensagemService: MensagemService,
+                public chatService: ChatService)
                  {
     }
 
@@ -41,6 +47,9 @@ export class ChatPage {
             .first()
             .subscribe((usuarioAtual: Usuario) => {
                 this.remetente = usuarioAtual;
+
+                this.chatRemetente = this.chatService.getDeepChat(this.remetente.$key, this.destinatario.$key)
+                this.chatDestinatario = this.chatService.getDeepChat(this.destinatario.$key, this.remetente.$key)
 
                 this.mensagens = this.mensagemService.
                     getMensagens(this.remetente.$key,this.destinatario.$key);
@@ -59,12 +68,22 @@ export class ChatPage {
     enviarMensagem(novaMensagem: string): void {
         if (novaMensagem) {
 
-            let timestamp: Object = firebase.database.ServerValue.TIMESTAMP;
+            let timestampAtual: Object = firebase.database.ServerValue.TIMESTAMP;
 
             this.mensagemService.criar(
-                new Mensagem(this.remetente.$key,novaMensagem,timestamp),
+                new Mensagem(this.remetente.$key,novaMensagem,timestampAtual),
                 this.mensagens
-            );
+            ).then(() => {
+                this.chatRemetente.update({
+                    ultimaMensagem: novaMensagem,
+                    timestamp: timestampAtual
+                });
+
+                this.chatDestinatario.update({
+                    ultimaMensagem: novaMensagem,
+                    timestamp: timestampAtual
+                });
+            });
         }
     }
 

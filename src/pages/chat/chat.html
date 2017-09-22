@@ -7,9 +7,10 @@
 
 <ion-content padding>
 
-    <ion-list no-lines>
-        <ion-item *ngFor="let mensagem of mensagens | async">{{mensagem.texto}}</ion-item>
-    </ion-list>
+    <mensagem-box *ngFor="let mensagem of mensagens | async" 
+        [mensagem]="mensagem"
+        [ehDoRemetente]="mensagem.idUsuario === remetente.$key">
+    </mensagem-box>
 
 </ion-content>
 
