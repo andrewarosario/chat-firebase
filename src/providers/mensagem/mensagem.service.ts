@@ -21,7 +21,8 @@ export class MensagemService extends BaseService{
     getMensagens(uidRemetente: string, uidDestinatario: string): FirebaseListObservable<Mensagem[]> {
         return <FirebaseListObservable<Mensagem[]>>this.db.list(`/mensagem/${uidRemetente}-${uidDestinatario}`, {
             query: {
-                orderByChild: 'timestamp'
+                orderByChild: 'timestamp',
+                limitToLast: 30
             }
         }).catch(this.handleObservableError);
     }

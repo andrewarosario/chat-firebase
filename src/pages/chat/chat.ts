@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, Content } from 'ionic-angular';
 import { AuthService } from '../../providers/auth/auth.service';
 import { Usuario } from '../../models/usuario.model';
 import { UsuarioService } from '../../providers/usuario/usuario.service';
@@ -17,6 +17,7 @@ import { ChatService } from '../../providers/chat/chat.service';
 })
 export class ChatPage {
 
+    @ViewChild(Content) content: Content;
     mensagens: FirebaseListObservable<Mensagem[]>
     tituloPagina: string;
     remetente: Usuario;
@@ -51,6 +52,12 @@ export class ChatPage {
                 this.chatRemetente = this.chatService.getDeepChat(this.remetente.$key, this.destinatario.$key)
                 this.chatDestinatario = this.chatService.getDeepChat(this.destinatario.$key, this.remetente.$key)
 
+                let doSubscription = () => {
+                    this.mensagens.subscribe((mensagens: Mensagem[]) => {
+                        this.rolarFim();
+                    })
+                }
+
                 this.mensagens = this.mensagemService.
                     getMensagens(this.remetente.$key,this.destinatario.$key);
 
@@ -60,8 +67,12 @@ export class ChatPage {
                         if (mensagens.length === 0) {
                             this.mensagens = this.mensagemService.
                             getMensagens(this.destinatario.$key,this.remetente.$key);
+
+                            doSubscription();
+                        } else {
+                            doSubscription();
                         }
-                    })
+                    });
             })
     }
 
@@ -85,6 +96,14 @@ export class ChatPage {
                 });
             });
         }
+    }
+
+    private rolarFim(duracao?: number): void {
+        setTimeout(() => {
+            if (this.content) {
+                this.content.scrollToBottom(duracao || 300);
+            }    
+        }, 50)  
     }
 
 }

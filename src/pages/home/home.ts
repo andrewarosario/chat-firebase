@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
 import { RegistrarPage } from "../registrar/registrar";
 import { FirebaseListObservable } from "angularfire2/database";
 import { Usuario } from "../../models/usuario.model";
@@ -25,7 +25,8 @@ export class HomePage {
     constructor(public navCtrl: NavController, 
                 public usuarioService: UsuarioService, 
                 public authService: AuthService,
-                public chatService: ChatService) {
+                public chatService: ChatService,
+                public menuCtrl: MenuController) {
 
     }
 
@@ -36,6 +37,8 @@ export class HomePage {
     ionViewDidLoad() {
         this.chats = this.chatService.chats;
         this.usuarios = this.usuarioService.usuarios;
+
+        this.menuCtrl.enable(true, 'menu-usuario');
     }
 
     criarChat(usuarioDestinatario: Usuario): void {
@@ -83,4 +86,33 @@ export class HomePage {
         this.navCtrl.push(RegistrarPage);
     }  
 
+    filtrarItens(event: any) {
+        let termoBusca: string = event.target.value;
+
+        this.chats = this.chatService.chats;
+        this.usuarios = this.usuarioService.usuarios;
+
+        if (termoBusca) {
+
+            switch(this.view) {
+                case 'chats':
+                    this.chats = <FirebaseListObservable<Chat[]>>this.chats
+                        .map((chats: Chat[]) => {
+                            return chats.filter((chat: Chat) => {
+                                return (chat.titulo.toLowerCase().indexOf(termoBusca.toLowerCase()) > -1);
+                            });
+                        }); 
+                    break;
+
+                case 'usuarios':
+                    this.usuarios = <FirebaseListObservable<Usuario[]>>this.usuarios
+                        .map((usuarios: Usuario[]) => {
+                            return usuarios.filter((usuario: Usuario) => {
+                                return (usuario.nome.toLowerCase().indexOf(termoBusca.toLowerCase()) > -1);
+                            });
+                        }); 
+                    break;  
+            }
+        }
+    }
 }

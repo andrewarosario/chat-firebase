@@ -20,6 +20,8 @@ import { ChatPage } from '../pages/chat/chat';
 import { ChatService } from '../providers/chat/chat.service';
 import { MensagemService } from '../providers/mensagem/mensagem.service';
 import { MensagemBoxComponent } from '../components/mensagem-box/mensagem-box.component';
+import { InfoUsuarioComponent } from '../components/info-usuario/info-usuario.component';
+import { MenuUsuarioComponent } from '../components/menu-usuario/menu-usuario.component';
 
 const firebaseAppConfig: FirebaseAppConfig = {
     apiKey: "AIzaSyAPxwo9lHdDXDJBNXQLyHj5f_PA7YYbAO8",
@@ -39,7 +41,9 @@ const firebaseAppConfig: FirebaseAppConfig = {
       CustomHeaderLogadoComponent,
       MensagemBoxComponent,
       CapitalizePipe,
-      ChatPage
+      ChatPage,
+      InfoUsuarioComponent,
+      MenuUsuarioComponent
     ],
     imports: [
       BrowserModule,
