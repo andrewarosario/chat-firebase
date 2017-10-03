@@ -10,13 +10,18 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import { AngularFireAuth } from 'angularfire2/auth';
 
+import { FirebaseApp } from 'angularfire2';
+import 'firebase/storage';
+
 @Injectable()
 export class UsuarioService extends BaseService{
 
     usuarios: FirebaseListObservable<Usuario[]>;
     usuarioAtual: FirebaseObjectObservable<Usuario>;
 
-    constructor(public db: AngularFireDatabase, public afAuth: AngularFireAuth) {
+    constructor(public db: AngularFireDatabase, 
+                public afAuth: AngularFireAuth,
+                public firebaseApp: FirebaseApp) {
         super();
         
         this.receberUsuarioLogado();
@@ -63,5 +68,19 @@ export class UsuarioService extends BaseService{
     get(idUsuario: string): FirebaseObjectObservable<Usuario> {
         return <FirebaseObjectObservable<Usuario>>this.db.object(`/usuario/${idUsuario}`)
             .catch(this.handleObservableError);
+    }
+
+    editar(usuario: {nome:string, usuario:string, foto:string}): firebase.Promise<void> {
+        return this.usuarioAtual
+            .update(usuario)
+            .catch(this.handlePromiseError);
+    }
+
+    uploadFoto(arquivo: File, idUsuario: string): firebase.storage.UploadTask {
+        return this.firebaseApp
+            .storage()
+            .ref()
+            .child(`/usuario/${idUsuario}`)
+            .put(arquivo);
     }
 }

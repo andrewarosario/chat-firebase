@@ -22,6 +22,8 @@ import { MensagemService } from '../providers/mensagem/mensagem.service';
 import { MensagemBoxComponent } from '../components/mensagem-box/mensagem-box.component';
 import { InfoUsuarioComponent } from '../components/info-usuario/info-usuario.component';
 import { MenuUsuarioComponent } from '../components/menu-usuario/menu-usuario.component';
+import { PerfilUsuarioPage } from '../pages/perfil-usuario/perfil-usuario';
+import { BarraProgressoComponent } from '../components/barra-progresso/barra-progresso.component';
 
 const firebaseAppConfig: FirebaseAppConfig = {
     apiKey: "AIzaSyAPxwo9lHdDXDJBNXQLyHj5f_PA7YYbAO8",
@@ -43,7 +45,9 @@ const firebaseAppConfig: FirebaseAppConfig = {
       CapitalizePipe,
       ChatPage,
       InfoUsuarioComponent,
-      MenuUsuarioComponent
+      MenuUsuarioComponent,
+      PerfilUsuarioPage,
+      BarraProgressoComponent
     ],
     imports: [
       BrowserModule,
@@ -58,7 +62,8 @@ const firebaseAppConfig: FirebaseAppConfig = {
       HomePage,
       RegistrarPage,
       LoginPage,
-      ChatPage
+      ChatPage,
+      PerfilUsuarioPage
     ],
     providers: [
       StatusBar,

@@ -3,6 +3,7 @@ import { BaseComponent } from '../base/base.component';
 import { AlertController, App, MenuController } from 'ionic-angular';
 import { AuthService } from '../../providers/auth/auth.service';
 import { Usuario } from '../../models/usuario.model';
+import { PerfilUsuarioPage } from '../../pages/perfil-usuario/perfil-usuario';
 
 @Component({
     selector: 'menu-usuario',
@@ -23,6 +24,6 @@ export class MenuUsuarioComponent extends BaseComponent{
     }
 
     abrirPerfil() :void {
-        
+        this.navCtrl.push(PerfilUsuarioPage);
     }
 }
