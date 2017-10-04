@@ -5,7 +5,18 @@
     </button>
 
     <ion-title>
-        {{titulo}}
+
+        <ion-item detail-none no-lines color="transparent" *ngIf="usuario; else tituloTemplate">
+            <ion-avatar item-end>
+                <img [src]="usuario.foto || 'assets/images/no-photo.jpg'">
+            </ion-avatar>
+            {{ titulo }}
+        </ion-item>
+
+        <ng-template #tituloTemplate>
+            {{ titulo }}
+        </ng-template>
+        
     </ion-title>
 
     <ion-buttons end>

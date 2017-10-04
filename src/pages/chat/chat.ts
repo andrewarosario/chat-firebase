@@ -52,6 +52,18 @@ export class ChatPage {
                 this.chatRemetente = this.chatService.getDeepChat(this.remetente.$key, this.destinatario.$key)
                 this.chatDestinatario = this.chatService.getDeepChat(this.destinatario.$key, this.remetente.$key)
 
+                if (this.destinatario.foto) {
+                    this.chatRemetente
+                    .first()
+                    .subscribe((chat: Chat) => {
+                        this.chatService.atualizaFoto(this.chatRemetente, chat.foto, this.destinatario.foto)
+                            .then((atualizou: boolean) => {
+                                //atualizou a foto
+                            });
+                    });
+                }
+
+
                 let doSubscription = () => {
                     this.mensagens.subscribe((mensagens: Mensagem[]) => {
                         this.rolarFim();
@@ -100,7 +112,7 @@ export class ChatPage {
 
     private rolarFim(duracao?: number): void {
         setTimeout(() => {
-            if (this.content) {
+            if (this.content._scroll) {
                 this.content.scrollToBottom(duracao || 300);
             }    
         }, 50)  

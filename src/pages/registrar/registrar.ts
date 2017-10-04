@@ -3,7 +3,6 @@ import { NavController, NavParams, Loading, LoadingController, AlertController }
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { UsuarioService } from "../../providers/usuario/usuario.service";
 import { AuthService } from "../../providers/auth/auth.service";
-import { Usuario } from "../../models/usuario.model";
 
 import * as firebase from 'firebase/app';
 

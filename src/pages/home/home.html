@@ -24,6 +24,9 @@
     <div [ngSwitch]="view">
         <ion-list no-lines *ngSwitchCase="'chats'">
             <button ion-item *ngFor="let chat of chats | async" (click)="abrirChat(chat)">
+                <ion-avatar item-end>
+                    <img [src]="chat.foto || 'assets/images/no-photo.jpg'">
+                </ion-avatar>
                 <h2>{{chat.titulo}}</h2>
                 <p *ngIf="chat.ultimaMensagem; else mensagemCustom">{{chat.timestamp | date: 'dd/MM/y H:mm' }} - {{chat.ultimaMensagem}}</p>
                 <ng-template #mensagemCustom>
@@ -34,6 +37,9 @@
 
         <ion-list no-lines *ngSwitchCase="'usuarios'">
             <button ion-item *ngFor="let usuario of usuarios | async" (click)="criarChat(usuario)">
+                <ion-avatar item-end>
+                    <img [src]="usuario.foto || 'assets/images/no-photo.jpg'">
+                </ion-avatar>
                 {{usuario.nome}}
             </button>
         </ion-list>

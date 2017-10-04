@@ -45,4 +45,16 @@ export class ChatService extends BaseService {
           .catch(this.handleObservableError);
     }
 
+    atualizaFoto(chat: FirebaseObjectObservable<Chat>, fotoChat: string, fotoDestinatario: string): firebase.Promise<boolean> {   
+        if (fotoChat != fotoDestinatario) {
+            return chat.update({
+                foto: fotoDestinatario
+            }).then(() => {
+                return true;
+            }).catch(this.handlePromiseError);
+        }
+        return Promise.resolve(false);
+
+    }
+
 }
